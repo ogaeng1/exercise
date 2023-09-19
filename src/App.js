@@ -1,25 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import Calculator from "./components/Calculator";
+import { useState } from "react";
+import CalculatorContext from "./context/CalcuContext";
 
 function App() {
+  const [result, setResult] = useState(0);
+
+  const add = (value) => setResult(result + value);
+  const subtract = (value) => setResult(result - value);
+  const multiply = (value) => setResult(result * value);
+  const divide = (value) => setResult(result / value);
+  const reset = () => setResult(0);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CalculatorContext.Provider value={{ result, add, subtract, multiply, divide, reset }}>
+      <Calculator />
+    </CalculatorContext.Provider>
   );
 }
 
 export default App;
+
+
+// 25번째 라인부터 투두리스트 코드
+
+// import TodoList from "./components/TodoList";
+// import todoContext from "./context/TodoContext";
+// import { useState } from "react";
+
+// function App() {
+//   const [todos, setTodos] = useState([]);
+
+//   const onAddTodo = (content) => {
+//     const newTodo = {
+//       id: todos.length,
+//       content,
+//       isDone: false
+//     }
+//     setTodos([...todos, newTodo]);
+//   }
+
+//   const onDeleteTodo = (id) => {
+//     const newTodo = todos.filter(todo => todo.id !== id);
+//     setTodos(newTodo);
+//   }
+
+//   const onToggleTodo = (id) => {
+//     const newTodo = todos.map(todo => todo.id === id ? { ...todo, isDone: !todo.isDone } : todo);
+//     setTodos(newTodo);
+//   }
+
+//   return (
+//     <todoContext.Provider value={{ todos, onAddTodo, onDeleteTodo, onToggleTodo }}>
+//       <TodoList />
+//     </todoContext.Provider>
+//   )
+// }
+
+// export default App;
